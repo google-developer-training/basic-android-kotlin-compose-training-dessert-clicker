@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.dessertclicker.ui.theme
+package com.example.dessertclicker.model
 
-import androidx.compose.ui.graphics.Color
-
-val Purple200 = Color(0xFFBB86FC)
-val Purple700 = Color(0xFF00574B)
-val Pink600 = Color(0xFFD81B60)
-val Green600 = Color(0xFF008577)
+/**
+ * [Dessert] is the data class to represent the Dessert imageId, price, and startProductionAmount
+ */
+data class Dessert(val imageId: Int, val price: Int, val startProductionAmount: Int)

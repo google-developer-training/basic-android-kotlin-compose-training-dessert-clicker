@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2022 The Android Open Source Project
 
@@ -13,11 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
-    <string name="app_name">Dessert Clicker</string>
-    <string name="dessert_sold">Desserts sold</string>
-    <string name="total_revenue">Total Revenue</string>
-    <string name="share">Share</string>
-    <string name="share_text">I\'ve clicked %1$d Desserts for a total of $%2$d #AndroidDessertClicker</string>
-    <string name="sharing_not_available">Sharing Not Available</string>
-</resources>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/white" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>
