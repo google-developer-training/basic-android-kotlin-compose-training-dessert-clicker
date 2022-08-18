@@ -63,7 +63,7 @@ import com.example.dessertclicker.ui.theme.DessertClickerTheme
 import com.example.dessertclicker.model.Dessert
 
 // tag for logging
-const val TAG = "MainActivity"
+private const val TAG = "MainActivity"
 
 class MainActivity : ComponentActivity() {
 
@@ -112,7 +112,7 @@ class MainActivity : ComponentActivity() {
  * Determine which dessert to show.
  */
 fun determineDessertToShow(
-    desserts:  List<Dessert>,
+    desserts: List<Dessert>,
     dessertsSold: Int
 ): Dessert {
     var dessertToShow = desserts.first()
@@ -187,7 +187,7 @@ private fun DessertClickerApp(
                 }
             )
         }
-    ) {
+    ) { contentPadding ->
         DessertClickerScreen(
             revenue = revenue,
             dessertsSold = dessertsSold,
@@ -202,7 +202,8 @@ private fun DessertClickerApp(
                 val dessertToShow = determineDessertToShow(desserts, dessertsSold)
                 currentDessertImageId = dessertToShow.imageId
                 currentDessertPrice = dessertToShow.price
-            }
+            },
+            modifier = Modifier.padding(contentPadding)
         )
     }
 }
@@ -221,18 +222,17 @@ private fun AppBar(
     ) {
         Text(
             text = stringResource(R.string.app_name),
-            modifier = modifier.padding(start = 16.dp),
+            modifier = Modifier.padding(start = 16.dp),
             color = MaterialTheme.colors.onPrimary,
             style = MaterialTheme.typography.h6,
         )
         IconButton(
             onClick = onShareButtonClicked,
-            modifier = modifier.padding(end = 16.dp),
+            modifier = Modifier.padding(end = 16.dp),
         ) {
             Icon(
                 imageVector = Icons.Filled.Share,
                 contentDescription = stringResource(R.string.share),
-                modifier = modifier,
                 tint = MaterialTheme.colors.onPrimary
             )
         }
@@ -247,29 +247,31 @@ fun DessertClickerScreen(
     onDessertClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Image(
-        painter = painterResource(R.drawable.bakery_back),
-        contentDescription = null,
-        contentScale = ContentScale.Crop
-    )
-    Column() {
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-        ) {
-            Image(
-                painter = painterResource(dessertImageId),
-                contentDescription = null,
+    Box(modifier = modifier) {
+        Image(
+            painter = painterResource(R.drawable.bakery_back),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+        Column {
+            Box(
                 modifier = Modifier
-                    .width(150.dp)
-                    .height(150.dp)
-                    .align(Alignment.Center)
-                    .clickable { onDessertClicked() },
-                contentScale = ContentScale.Crop,
-            )
+                    .weight(1f)
+                    .fillMaxWidth(),
+            ) {
+                Image(
+                    painter = painterResource(dessertImageId),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .width(150.dp)
+                        .height(150.dp)
+                        .align(Alignment.Center)
+                        .clickable { onDessertClicked() },
+                    contentScale = ContentScale.Crop,
+                )
+            }
+            TransactionInfo(revenue = revenue, dessertsSold = dessertsSold)
         }
-        TransactionInfo(revenue = revenue, dessertsSold = dessertsSold)
     }
 }
 
