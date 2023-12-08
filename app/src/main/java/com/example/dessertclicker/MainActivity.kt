@@ -172,13 +172,11 @@ private fun DessertClickerApp(
     var revenue by rememberSaveable { mutableStateOf(0) }
     var dessertsSold by rememberSaveable { mutableStateOf(0) }
 
-    val currentDessertIndex by rememberSaveable { mutableStateOf(0) }
-
     var currentDessertPrice by rememberSaveable {
-        mutableStateOf(desserts[currentDessertIndex].price)
+        mutableStateOf(desserts.first().price)
     }
     var currentDessertImageId by rememberSaveable {
-        mutableStateOf(desserts[currentDessertIndex].imageId)
+        mutableStateOf(desserts.first().imageId)
     }
 
     Scaffold(
