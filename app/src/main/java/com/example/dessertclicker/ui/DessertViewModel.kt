@@ -13,18 +13,34 @@ class DessertViewModel : ViewModel() {
     private val _dessertUiState = MutableStateFlow(DessertUiState())
     val dessertUiState: StateFlow<DessertUiState> = _dessertUiState.asStateFlow()
 
-    fun onDessertClicked() {
-       _dessertUiState.update { cupcakeUiState ->
-           val dessertsSold = cupcakeUiState.dessertsSold + 1
-           val nextDessertIndex = determineDessertIndex(dessertsSold)
-           cupcakeUiState.copy(
-               currentDessertIndex = nextDessertIndex,
-               revenue = cupcakeUiState.revenue + cupcakeUiState.currentDessertPrice,
-               dessertsSold = dessertsSold,
-               currentDessertImageId = dessertList[nextDessertIndex].imageId,
-               currentDessertPrice = dessertList[nextDessertIndex].price
-           )
-       }
+    fun onDessertClicked(){
+        _dessertUiState.update { cupCakeUiState ->
+            val dessertsSold: Int = if (cupCakeUiState.currentDessertIndex >= 13){
+                cupCakeUiState.dessertsSold
+            }else{
+                cupCakeUiState.dessertsSold + 1
+            }
+            val nextDessertIndex = determineDessertIndex(dessertsSold)
+            if(cupCakeUiState.currentDessertIndex >= 13){
+                cupCakeUiState.copy(
+                    currentDessertIndex = nextDessertIndex,
+                    dessertsSold = dessertsSold,
+                    revenue = cupCakeUiState.revenue,
+                    currentDessertPrice = dessertList[nextDessertIndex].price,
+                    currentDessertImageId = dessertList[nextDessertIndex].imageId
+                )
+            }else{
+                cupCakeUiState.copy(
+                    currentDessertIndex = nextDessertIndex,
+                    dessertsSold = dessertsSold,
+                    revenue = cupCakeUiState.revenue + cupCakeUiState.currentDessertPrice,
+                    currentDessertPrice = dessertList[nextDessertIndex].price,
+                    currentDessertImageId = dessertList[nextDessertIndex].imageId
+                )
+            }
+
+        }
+
     }
 
     private fun determineDessertIndex(dessertsSold: Int): Int {
@@ -32,14 +48,9 @@ class DessertViewModel : ViewModel() {
         for (index in dessertList.indices) {
             if (dessertsSold >= dessertList[index].startProductionAmount) {
                 dessertIndex = index
-            } else {
-                // The list of desserts is sorted by startProductionAmount. As you sell more
-                // desserts, you'll start producing more expensive desserts as determined by
-                // startProductionAmount. We know to break as soon as we see a dessert who's
-                // "startProductionAmount" is greater than the amount sold.
-                break
             }
         }
-        return dessertIndex
+        return if (dessertIndex <= 12) dessertIndex
+        else 13
     }
 }

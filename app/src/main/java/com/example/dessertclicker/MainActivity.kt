@@ -148,8 +148,7 @@ private fun DessertClickerApp(
 @Composable
 private fun DessertClickerApp(
     uiState: DessertUiState,
-    onDessertClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    onDessertClicked: () -> Unit
 ) {
     Scaffold(
         topBar = {
