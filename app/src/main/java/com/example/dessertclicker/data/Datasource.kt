@@ -35,6 +35,7 @@ object Datasource {
         Dessert(R.drawable.lollipop, 3000, 4000),
         Dessert(R.drawable.marshmallow, 4000, 8000),
         Dessert(R.drawable.nougat, 5000, 16000),
-        Dessert(R.drawable.oreo, 6000, 20000)
+        Dessert(R.drawable.oreo, 6000, 20000),
+        Dessert(R.drawable.out_of_stock, 1, 20001)
     )
 }
